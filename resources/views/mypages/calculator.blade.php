@@ -5,8 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Calculator</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <h1>This is calculator</h1>
+    <div class="mx-auto text-center">
+        <h1 class="text-xl text-yellow-500">!!!THIS IS CALCULATOR PAGE!!!</h1>
+        <br>
+        <form action="{{ route('callcalculate') }}" class="mt-5">
+            @csrf
+            <label for="num1">Number 1:</label>
+            <input name="number1" id="num1" required autofocus>
+            @if ($errors->has('number1'))
+                <span class="text-danger">{{ $errors->first('number1') }}</span>
+            @endif
+            <br>
+            <br>
+            <label for="num2">Number 2:</label>
+            <input name="number2" id="num2" required>
+            @if ($errors->has('number2'))
+                <span class="text-danger">{{ $errors->first('number2') }}</span>
+            @endif
+            <br>
+            <button type="submit" class="bg-blue-500 px-4 py-1 text-white
+                            hover:bg-blue-600 mt-5 mb-4 w-24">
+                            ADD
+                        </button>
+        </form>
+    </div>
+    <div>
+        <button type="reset">RESEST</button>
+
+    </div>
+    @if( $result != null)
+        <span class="text-x1">SUM: {{ $result }}</span>
+    @else
+        <span class="text-x1">SUM: Not Yet Calculated!</span>
+    @endif
+    
+
 </body>
 </html>
