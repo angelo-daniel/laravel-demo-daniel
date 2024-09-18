@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CalculatorController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\prelimAngeloController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -10,6 +11,29 @@ Route::get('/', function () {
 
 Route::get('/calculator', [CalculatorController::class, 'showCalculatorPage']);
 Route::get('/calculate', [CalculatorController::class, 'calculate'])->name('callcalculate');
+
+Route::get('/main', [prelimAngeloController::class, 'showOperatorPage']);
+
+Route::get('/addition', function () {
+    return view('prelim-angelo.addition');
+})->name('addition');
+Route::get('/subtraction', function() {
+    return view('prelim-angelo.subtraction');
+})->name('subtraction');
+Route::get('division', function () {
+    return view('prelim-angelo.division');
+})->name('division');
+Route::get('multiplication', function () {
+    return view('prelim-angelo.multiplication');
+})->name('multiplication');
+Route::get('main', function() {
+    return view('prelim-angelo.main');
+})->name('main');
+
+Route::post('/calculate-addition', [prelimAngeloController::class, 'calculateAddition'])->name('callcalculateAddition');
+Route::post('/calculate-subtraction', [prelimAngeloController::class, 'calculateSubtraction'])->name('callcalculateSubtraction');
+Route::post('/calculate-division', [prelimAngeloController::class, 'calculateDivision'])->name('callcalculateDivision');
+Route::post('/calculate-multiply', [prelimAngeloController::class, 'calculateMultiply'])->name('callcalculateMultiply');
     
 
 
@@ -25,7 +49,9 @@ Route::get('/services', function () {
     return view('mypages.services');
 })->name('services');
 
-
+Route::get('/main', function () {
+    return view('prelim-angelo.main');
+})->name('main');
 
 
 

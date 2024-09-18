@@ -13,6 +13,11 @@ class CalculatorController extends Controller
             'result' => null
         ]);
     }
+
+    public function showSubtractionPage() {
+        return view('prelim-angelo.subtraction', ['result' => null]);
+    }
+    
     public function calculate(Request $request)
     {
         $request->validate([
