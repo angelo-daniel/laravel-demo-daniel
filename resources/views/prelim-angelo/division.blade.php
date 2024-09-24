@@ -26,10 +26,9 @@
                 <span class="text-danger">{{ $errors->first('number2') }}</span>
             @endif
             <br>
-            <button type="submit" class="bg-blue-500 px-4 py-1 text-white
-                            hover:bg-blue-600 mt-5 mb-4 w-24">
-                            ADD
-                        </button>
+            <button type="submit" class="bg-blue-500 px-4 py-1 text-white hover:bg-blue-600 mt-5 mb-4 w-24">
+                DIVIDE
+            </button>
         </form>
     </div>
     <div>

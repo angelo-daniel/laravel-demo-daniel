@@ -37,6 +37,24 @@ Route::post('/calculate-multiply', [prelimAngeloController::class, 'calculateMul
     
 
 
+
+
+
+
+Route::get('/showLogin', function() {
+    return view('MyMiddlewareDemo.login');
+})->name('login_form');
+
+Route::post('/showLogin', function() {
+    return view('MyMiddlewareDemo.login');
+})->name('login.middleware');
+
+Route::get('/show/dashboard', function() {
+    return view('MyMiddlewareDemo.dashboard');
+})->name('gotodashboard');
+
+
+
 Route::get('/index', function () {
     return view('mypages.index');
 })->name('index');
@@ -85,3 +103,25 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+// Route::get('/calculator', [CalculatorController::class, 'showCalculatorPage']);
+// Route::get('/calculate', [CalculatorController::class, 'calculate'])->name('callcalculate');
+
+// Route::get('/main', [prelimAngeloController::class, 'showOperatorPage']);
+
+// Route::get('/addition', function () {
+//     return view('prelim-angelo.addition');
+// })->name('addition');
+// Route::get('/subtraction', function() {
+//     return view('prelim-angelo.subtraction');
+// })->name('subtraction');
+// Route::get('division', function () {
+//     return view('prelim-angelo.division');
+// })->name('division');
+// Route::get('multiplication', function () {
+//     return view('prelim-angelo.multiplication');
+// })->name('multiplication');
+// Route::get('main', function() {
+//     return view('prelim-angelo.main');
+// })->name('main');

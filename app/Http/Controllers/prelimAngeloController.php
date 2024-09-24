@@ -9,11 +9,7 @@ class prelimAngeloController extends Controller
     public function showOperatorPage() {
         return view('prelim-angelo.main');
     }
-
-    public function showSubtractionPage() {
-        return view('prelim-angelo.subtraction', ['result' => null]);
-    }
-
+    
     public function calculateAddition (Request $request) {
 
         $request->validate([
@@ -47,20 +43,28 @@ class prelimAngeloController extends Controller
         return view('prelim-angelo.subtraction', ['result' => $result]);
     }
 
-    public function calculateDivision(Request $request) {
+    public function calculateDivision(Request $request)
+{
+    
+    $request->validate([
+        'number1' => 'required|numeric',
+        'number2' => 'required|numeric|not_in:0',  
+    ], [
+        'number2.not_in' => 'The second number cannot be zero.',  
+    ]);
 
-        $request->validate([
-            'number1' => 'required|numeric', 
-            'number2' => 'required|numeric',
-        ]);
+    
+    $num1 = $request->input('number1');
+    $num2 = $request->input('number2');
+    
+    
+    $result = $num1 / $num2;
 
-        $num1 = $request->input('number1');
-        $num2 = $request->input('number2');
-
-        $result = $num1 / $num2;
-
-        return view('prelim-angelo.division',['result' => $result]);
-    }
+    
+    return view('prelim-angelo.division', [
+        'result' => $result
+    ]);
+}
 
     public function calculateMultiply(Request $request) {
         $request->validate([
@@ -77,4 +81,15 @@ class prelimAngeloController extends Controller
     }
 }
 
+
+
+
+
+
+// $request->validate([
+//     'number1' => 'required|numeric',
+//     'number2' => 'required|numeric|not_in:0',  
+// ], [
+//     'number2.not_in' => 'The second number cannot be zero.',  
+// ]);
 
