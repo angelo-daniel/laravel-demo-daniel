@@ -7,6 +7,19 @@
     <title>dashboard</title>
 </head>
 <body>
+    @if (session('confirm'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: "Successfully Login!",
+                    text: "Welcome admin", 
+                    icon: "success"
+                });
+            });
+        </script>
+    @endif
     <h1>Hello dashboard!</h1>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 </body>
 </html>

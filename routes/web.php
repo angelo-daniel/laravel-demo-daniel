@@ -47,7 +47,7 @@ Route::get('/showLogin', function() {
 
 Route::post('/showLogin', function() {
     return view('MyMiddlewareDemo.login');
-})->name('login.middleware');
+})->middleware('login.middleware');
 
 Route::get('/show/dashboard', function() {
     return view('MyMiddlewareDemo.dashboard');

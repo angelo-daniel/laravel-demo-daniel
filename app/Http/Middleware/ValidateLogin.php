@@ -22,7 +22,11 @@ class ValidateLogin
             $password = "admin";
 
             if($validatedData['username'] === $username && $validatedData['password'] === $password){
-                return redirect()->route('gotodashboard');
+                // return redirect()->route('gotodashboard');
+                // return redirect()->away('https://netflix.com'); //redirecting to other sites
+                // return response()->json($data, 200, $headers);
+
+                return redirect()->route('gotodashboard')->with('confirm', 'LOGIN SUCCESSFULLY!');
             }else{
                 return redirect()->back()->withErrors([$username => 'username or password is incorrect!']);
             }
