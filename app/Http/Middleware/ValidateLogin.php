@@ -26,7 +26,8 @@ class ValidateLogin
                 // return redirect()->away('https://netflix.com'); //redirecting to other sites
                 // return response()->json($data, 200, $headers);
 
-                return redirect()->route('gotodashboard')->with('confirm', 'LOGIN SUCCESSFULLY!');
+                // return redirect()->route('gotodashboard')->with('confirm', 'LOGIN SUCCESSFULLY!');
+                return response()->json("Successfully Login");
             }else{
                 return redirect()->back()->withErrors([$username => 'username or password is incorrect!']);
             }
