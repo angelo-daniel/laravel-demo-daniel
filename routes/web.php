@@ -23,6 +23,17 @@ Route::get('/login23', function() {
     return view('Form.Login');
 })->name('login23');
 
+Route::get('/login1', function() {
+    return view('login.login1');
+})->name('login1');
+Route::get('/register1', function() {
+    return view('login.register1');
+})->name('register1');
+Route::get('/main-dashboard', function () {
+    return view('login.dashboard');
+})->name('main-dashboard');
+
+
 Route::get('/calculator', [CalculatorController::class, 'showCalculatorPage']);
 Route::get('/calculate', [CalculatorController::class, 'calculate'])->name('callcalculate');
 
@@ -107,9 +118,9 @@ Route::get('/hehe' , function () {
 });
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
