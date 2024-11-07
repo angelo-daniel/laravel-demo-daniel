@@ -7,7 +7,7 @@ use App\Http\Controllers\prelimAngeloController;
 use App\Http\Controllers\discountCalculatir;
 use App\Http\Controllers\FormController;
 
-Route::get('/', function () {
+Route::get('/dsd', function () {
     return view('welcome');
 });
 
@@ -23,7 +23,7 @@ Route::get('/login23', function() {
     return view('Form.Login');
 })->name('login23');
 
-Route::get('/login1', function() {
+Route::get('/', function() {
     return view('login.login1');
 })->name('login1');
 Route::get('/register1', function() {
