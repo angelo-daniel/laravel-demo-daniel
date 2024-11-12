@@ -10,7 +10,14 @@
     @if(!Auth::check())
         <h1>You are not authenticated, please login <a href="{{ route('login1') }}">LOGIN</a>
     @else
-            <h1>Welcome to dashboard, {{ Auth::user()->name }}</h1>
+        @if(Auth::user()->hasRole('admin'))
+            <h1>Welcome , {{ Auth::user()->name }}</h1>
+        @elseif(Auth::user()->hasRole('judge'))
+            <h1>Welcome , {{ Auth::user()->name }}</h1>
+        @else
+            <h1>Welcome , {{ Auth::user()->name }}</h1>
+        @endif
+
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <x-dropdown-link :href="route('logout')"
