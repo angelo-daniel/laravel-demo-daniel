@@ -33,8 +33,8 @@
                             <label for="role" class="block text-sm/6 font-medium text-black">Select Role: </label>
                                 <select name="role" id="role" required>
                                     <option value="admin">Administrator</option>
-                                    <option value="judge">Judge</option>
-                                    <option value="staff">Staff</option>
+                                    <option value="registrar">Registrar</option>
+                                    <option value="faculty">Faculty</option>
                                 </select>
                         </div>
                         <div>

@@ -11,11 +11,11 @@
         <h1>You are not authenticated, please login <a href="{{ route('login1') }}">LOGIN</a>
     @else
         @if(Auth::user()->hasRole('admin'))
-            <h1>Welcome , {{ Auth::user()->name }}</h1>
-        @elseif(Auth::user()->hasRole('judge'))
-            <h1>Welcome , {{ Auth::user()->name }}</h1>
+            <h1>Welcome , Administrator : <span class="text-red-500">{{ Auth::user()->name }}</span></h1>
+        @elseif(Auth::user()->hasRole('registrar'))
+            <h1>Welcome , Registrar : <span class="text-red-500">{{ Auth::user()->name }}</span></h1>
         @else
-            <h1>Welcome , {{ Auth::user()->name }}</h1>
+            <h1>Welcome , Faculty : <span class="text-red-500">{{ Auth::user()->name }}</span></h1>
         @endif
 
             <form action="{{ route('logout') }}" method="POST">
