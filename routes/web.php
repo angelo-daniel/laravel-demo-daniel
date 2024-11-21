@@ -23,7 +23,9 @@ Route::get('/login23', function() {
     return view('Form.Login');
 })->name('login23');
 
-
+//
+//
+//
 //19/11/2024
 Route::get('/', function() {
     return view('login.login1');
@@ -36,14 +38,47 @@ Route::get('/register1', function() {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::middleware(['role:admin'])->prefix('admin')->group(function () {
+
+    //ADMIN ROUTE
+    Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
+
         Route::get('/main-dashboard', function () {
             return view('login.dashboard');
         })->name('main-dashboard');
+
     });
+
+    //REGISTRAR ROUTE
+    Route::middleware(['role:registrar'])->prefix('registrar')->name('registrar.')->group(function () {
+
+        Route::get('/main-dashboard', function () {
+            return view('login.dashboard');
+        })->name('main-dashboard');
+
+    });
+
+    //FACULTY ROUTE
+    Route::middleware(['role:faculty'])->prefix('faculty')->name('faculty.')->group(function () {
+
+        Route::get('/main-dashboard', function () {
+            return view('login.dashboard');
+        })->name('main-dashboard');
+
+    });
+
 });
 
 ///////
+//
+//
+//
+
+
+
+
+
+
+
 
 Route::get('/calculator', [CalculatorController::class, 'showCalculatorPage']);
 Route::get('/calculate', [CalculatorController::class, 'calculate'])->name('callcalculate');
