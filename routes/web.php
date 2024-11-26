@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\prelimAngeloController;
 use App\Http\Controllers\discountCalculatir;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\EventController;
 
 Route::get('/dsd', function () {
     return view('welcome');
@@ -41,12 +42,25 @@ Route::middleware(['auth'])->group(function () {
 
     //ADMIN ROUTE
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
-
+        //route 1
         Route::get('/main-dashboard', function () {
             return view('login.dashboard');
         })->name('main-dashboard');
 
+        //route 2
+        Route::controller(EventController::class)->group(function () {
+            Route::post('/add_event', 'add_event')->name('add_event');
+
+        });
+
+
+
     });
+
+
+
+
+
 
     //REGISTRAR ROUTE
     Route::middleware(['role:registrar'])->prefix('registrar')->name('registrar.')->group(function () {

@@ -20,13 +20,41 @@
                     Add Event
                     </button>
                 <div x-show="open" class="fixed inset-0 flex items-center justify-center bg-black opacity-50 z-50">
-                    <div class="bg-white p-6 rounded-lg shadow-lg max-w-auto border-2 border-black">
-                    <div class="flext justify-between items-center">
+                    <div class="w-[30%] bg-white p-6 rounded-lg shadow-lg max-w-auto border-2 border-black">
+                    <div class="flex justify-between items-center">
                         <p class="text-xl font-bold">Add Event</p>
-                        <button @click="open = false" class="text-black text-2xl">&times;</button>
+                        <button @click="open = false" class="text-black text-2xl">x (close)</button>
                 </div>
                 <div>
-                    <h1>THIS IS MORAL BODY</h1>
+                    {{-- form --}}
+                    <form action="{{ route('admin.add_event') }}" method="POST" class="mt-5">
+                        {{-- event name --}}
+                        @csrf
+                        <div>
+                            <label for="event_name" class="flex justify-start">Event</label>
+                            <input type="text"
+                                   name="event_name"
+                                   id="event_name"
+                                   value="{{ old('event_name') }}"
+                                   class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700
+                                            leading-tight focus:outline-none focus:shadow-outline
+                                            @error('event_name') is-invalid @enderror required">
+                        </div>
+                        {{-- event description --}}
+                        <div>
+                            <label for="event_description" class="flex justify-start">Event Description</label>
+                            <input type="text"
+                                   name="event_description"
+                                   id="event_description"
+                                   value="{{ old('event_description') }}"
+                                   class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700
+                                            leading-tight focus:outline-none focus:shadow-outline
+                                            @error('event_description') is-invalid @enderror required">
+                        </div>
+                        <button type="submit" class="mt-3 mb-3 bg-blue-500 text-white w-full px-2 py-2">
+                            ADD EVENT
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
