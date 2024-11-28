@@ -5,12 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/regular.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/solid.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body>
     {{-- @if(!Auth::check())
         <h1>You are not authenticated, please login <a href="{{ route('login1') }}">LOGIN</a>
     @else --}}
+    @if (session('success'))
+        <x-sweetalert type="success" :message="session('success')"/>
+    @endif
+
+    @if (session('info'))
+        <x-sweetalert type="info" :message="session('info')"/>
+    @endif
+
+    @if (session('error'))
+        <x-sweetalert type="error" :message="session('error')"/>
+    @endif
+
         @if(Auth::user()->hasRole('admin'))
             <h1 class="mt-5 text-center mb-5">Welcome , Administrator : <span class="text-red-500 mt-8 mb-8">{{ Auth::user()->name }}</span></h1>
 
@@ -61,6 +77,35 @@
     </div>
     </div>
 
+    <table class="w-full max-w-4xl mx-auto border-collapse">
+        <thead>
+            <tr>
+                <th class="border border-black p-2">ID</th>
+                <th class="border border-black p-2">EVENT NAME</th>
+                <th class="border border-black p-2">EVENT DESCRIPTION</th>
+                <th class="border border-black p-2">ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if($events->isEmpty())
+                <tr>
+                    <td colspan="4" class="text-center py-4">No data available</td>
+                </tr>
+            @else
+                @foreach($events as $event)
+                    <tr class="border-t border-b">
+                        <td class="border border-black p-2">{{ $event->id }}</td>
+                        <td class="border border-black p-2">{{ $event->event_name }}</td>
+                        <td class="border border-black p-2">{{ $event->event_description }}</td>
+                        <td class="border border-black p-2"><i class="fa-solid fa-pen-to-square"> | <i class="fa-solid fa-trash-can"></i></i></td>
+                    </tr>
+                @endforeach
+            @endif
+        </tbody>
+    </table>
+
+
+
 
         @elseif(Auth::user()->hasRole('registrar'))
             <h1>Welcome , Registrar : <span class="text-red-500">{{ Auth::user()->name }}</span></h1>
@@ -77,6 +122,9 @@
                 </x-dropdown-link>
             </form>
             {{-- @endif --}}
+
+
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
 

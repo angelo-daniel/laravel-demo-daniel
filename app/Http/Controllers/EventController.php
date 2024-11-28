@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    public function index()
+    {
+        $events = Event::all();
+        return view('login.dashboard', compact('events'));
+    }
     public function add_event(Request $request) {
         $request->validate( [
             'event_name' => 'required|string|max:255',
@@ -17,5 +22,9 @@ class EventController extends Controller
             'event_name' => $request->event_name,
             'event_description' => $request->event_description,
         ]);
+
+
+
+        return redirect()->route('admin.main-dashboard')->with('success','Na add na ang event!');
     }
 }
