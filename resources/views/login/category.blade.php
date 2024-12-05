@@ -34,42 +34,49 @@
 
         <div class="mx-auto">
             <div x-data="{ open: false }"class="text-center">
-                <button @click="open = true" class="bg-blue-500 text-white py-2 px-2 hover:">
-                    Add Event
-                </button>
-                <a href="{{ route('admin.category') }}" class="text-center bg-blue-500 text-white py-2 px-2">
+                <button @click="open = true" class="bg-blue-500 text-white mb-2 py-2 px-2 hover:">
                     Add Category
-                </a>
+                </button>
                 <div x-show="open" class="fixed inset-0 flex items-center justify-center bg-black opacity-100 z-50">
                     <div class="w-[30%] bg-white p-6 rounded-lg shadow-lg max-w-auto border-2 border-black">
                         <div class="flex justify-between items-center">
-                            <p class="text-xl font-bold">Add Event</p>
+                            <p class="text-xl font-bold">Add Category</p>
                             <button @click="open = false" class="text-black text-2xl">x (close)</button>
                         </div>
                         <div>
                             {{-- form --}}
-                            <form action="{{ route('admin.add_event') }}" method="POST" class="mt-5">
-                                {{-- event name --}}
+                            <form action="{{ route('admin.add_category') }}" method="POST" class="mt-5">
+                                {{-- category name --}}
                                 @csrf
+                                <select name="event_id" id="event_id">
+                                    @if($events->isEmpty())
+                                        <option value="">No Events Found</option>
+                                    @else
+                                        @foreach ( $events as $event )
+                                            <option value="{{ $event->id}}">{{ $event->event_name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+
                                 <div>
-                                    <label for="event_name" class="flex justify-start">Event</label>
-                                    <input type="text" name="event_name" id="event_name"
-                                        value="{{ old('event_name') }}"
+                                    <label for="category_name" class="flex justify-start">Category</label>
+                                    <input type="text" name="category_name" id="category_name"
+                                        value="{{ old('category_name') }}"
                                         class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700
                                             leading-tight focus:outline-none focus:shadow-outline
-                                            @error('event_name') is-invalid @enderror required">
+                                            @error('category_name') is-invalid @enderror required">
                                 </div>
-                                {{-- event description --}}
+                                {{-- category description --}}
                                 <div>
-                                    <label for="event_description" class="flex justify-start">Event Description</label>
-                                    <input type="text" name="event_description" id="event_description"
-                                        value="{{ old('event_description') }}"
+                                    <label for="category_description" class="flex justify-start">Category Description</label>
+                                    <input type="text" name="category_description" id="category_description"
+                                        value="{{ old('category_description') }}"
                                         class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700
                                             leading-tight focus:outline-none focus:shadow-outline
-                                            @error('event_description') is-invalid @enderror required">
+                                            @error('category_description') is-invalid @enderror required">
                                 </div>
                                 <button type="submit" class="mt-3 mb-3 bg-blue-500 text-white w-full px-2 py-2">
-                                    ADD EVENT
+                                    Add Category
                                 </button>
                             </form>
                         </div>
@@ -82,22 +89,24 @@
             <thead>
                 <tr>
                     <th class="border border-black p-2">ID</th>
-                    <th class="border border-black p-2">EVENT NAME</th>
-                    <th class="border border-black p-2">EVENT DESCRIPTION</th>
+                    <th class="border border-black p-2">CATEGORY NAME</th>
+                    <th class="border border-black p-2">CATEGORY DESCRIPTION</th>
+                    <th class="border border-black p-2">EVENT ID</th>
                     <th class="border border-black p-2">ACTION</th>
                 </tr>
             </thead>
             <tbody>
-                @if ($events->isEmpty())
+                @if ($categories->isEmpty())
                     <tr>
                         <td colspan="4" class="text-center py-4">No data available</td>
                     </tr>
                 @else
-                    @foreach ($events as $event)
+                    @foreach ($categories as $category)
                         <tr class="border-t border-b">
-                            <td class="border border-black p-2">{{ $event->id }}</td>
-                            <td class="border border-black p-2">{{ $event->event_name }}</td>
-                            <td class="border border-black p-2">{{ $event->event_description }}</td>
+                            <td class="border border-black p-2">{{ $category->id }}</td>
+                            <td class="border border-black p-2">{{ $category->category_name }}</td>
+                            <td class="border border-black p-2">{{ $category->category_description }}</td>
+                            <td class="border border-black p-2">{{ $category->event_id }}</td>
                             <td class="border border-black p-2">
 
                                 <div x-data="{ open: false }"class="text-center">
@@ -107,34 +116,34 @@
                                     <div x-show="open" class="fixed inset-0 flex items-center justify-center bg-black  z-50">
                                         <div class="w-[30%] bg-white p-6 rounded-lg shadow-lg max-w-auto border-2 border-black">
                                             <div class="flex justify-between items-center">
-                                                <p class="text-xl font-bold">Edit Event</p>
+                                                <p class="text-xl font-bold">Edit </p>
                                                 <button @click="open = false" class="text-black text-2xl">x (close)</button>
                                             </div>
                                             <div>
                                                 {{-- form --}}
-                                                <form action="{{ route('admin.update_event', $event->id) }}" method="POST" class="mt-5">
+                                                <form action="{{ route('admin.update_category', $category->id) }}" method="POST" class="mt-5">
                                                     {{-- event name --}}
                                                     @csrf
                                                     @method('PUT')
                                                     <div>
-                                                        <label for="event_name" class="flex justify-start">Event</label>
-                                                        <input type="text" name="event_name" id="event_name"
-                                                            value="{{ $event->event_name }}"
+                                                        <label for="category_name" class="flex justify-start">Category</label>
+                                                        <input type="text" name="category_name" id="category_name"
+                                                            value="{{ $category->category_name }}"
                                                             class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700
                                                                 leading-tight focus:outline-none focus:shadow-outline
-                                                                @error('event_name') is-invalid @enderror required">
+                                                                @error('category_name') is-invalid @enderror required">
                                                     </div>
                                                     {{-- event description --}}
                                                     <div>
-                                                        <label for="event_description" class="flex justify-start">Event Description</label>
-                                                        <input type="text" name="event_description" id="event_description"
-                                                            value="{{ $event->event_description }}"
+                                                        <label for="category_description" class="flex justify-start">Event Category</label>
+                                                        <input type="text" name="category_description" id="category_description"
+                                                            value="{{ $category->category_description }}"
                                                             class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700
                                                                 leading-tight focus:outline-none focus:shadow-outline
-                                                                @error('event_description') is-invalid @enderror required">
+                                                                @error('category_description') is-invalid @enderror required">
                                                     </div>
                                                     <button type="submit" class="mt-3 mb-3 bg-blue-500 text-white w-full px-2 py-2">
-                                                        EDIT EVENT
+                                                        Edit Category
                                                     </button>
                                                 </form>
                                             </div>
@@ -142,13 +151,13 @@
                                     </div>
                                 </div>
 
-                                <form action="{{ route('admin.delete_event', $event->id) }}"
+                                <form action="{{ route('admin.delete_category', $category->id) }}"
                                         method="POST"
                                         onsubmit="return confirm('Event Deletion: Are you sure?')">
                                     @csrf
                                     @method('DELETE')
 
-                                    <input type="text" value="{{ $event->id }}" hidden>
+                                    <input type="text" value="{{ $category->id }}" hidden>
                                     <button type="submit" class="text-center bg-blue-500 text-white py-2 px-2">
                                         delete
                                     </button>

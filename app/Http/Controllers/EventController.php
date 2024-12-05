@@ -47,15 +47,23 @@ class EventController extends Controller
         ]);
 
         $event->event_name = $request->event_name;
-        $event->event_description = $request->event_desciption;
+        $event->event_description = $request->event_description;
         $event->save();
 
-        return redirect()->route('admin.main-dashboard')->with('success','Na add na ang event!');
+        return redirect()->route('admin.main-dashboard')
+                            ->with('success','Wa gihapon ko kasabot ug giunsa ni!');
 
        } catch(\Exception $e){
 
             return redirect()->route('admin.main-dashboard')
                     ->with('error', 'Event exist!');
         }
+    }
+
+    public function delete_event(Request $request, $id) {
+        $event = Event::findOrFail($id);
+        $event->delete();
+        return  redirect()->route('admin.main-dashboard')
+                        ->with('success','Event deleted');
     }
 }

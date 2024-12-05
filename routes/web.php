@@ -7,6 +7,7 @@ use App\Http\Controllers\prelimAngeloController;
 use App\Http\Controllers\discountCalculatir;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/dsd', function () {
     return view('welcome');
@@ -53,8 +54,17 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/main-dashboard', 'index')->name('main-dashboard');
             Route::post('/add_event', 'add_event')->name('add_event');
             Route::put('/update_event/{id}', 'update_event')->name('update_event');
+            Route::delete('/delete_event/{id}', 'delete_event')->name('delete_event');
+
         });
 
+        Route::controller(CategoryController::class)->group(function () {
+            Route::get('/category', 'index')->name('category');
+            Route::post('/add_category', 'add_category')->name('add_category');
+            Route::put('/update_category/{id}', 'update_category')->name('update_category');
+            Route::delete('/delete_category/{id}', 'delete_category')->name('delete_category');
+
+        });
 
 
     });
